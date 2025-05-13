@@ -13,16 +13,17 @@ self.addEventListener('message', function(e) {
     
 	for (let yw = y; yw < y+linesPerWorker; yw++)
 	{
-    for (let x = 0; x < w; x++) 
-	{
-		let u = -(x - w / 2) / w * 1.6 * (w / h);
-		let v = -(yw - h / 2) / h * 1.6;
-        let ro = new Vec3(0, 15, -60);                  // rotated position
-        let rd = (new Vec3(-u, v, 1)).normalize();
-		Scheduler.addTask(new RenderTaskViewport(x, yw, ro, rd));			
-    }
+		for (let x = 0; x < w; x++) 
+		{
+			let u = -(x - w / 2) / w * 1.6 * (w / h);
+			let v = -(yw - h / 2) / h * 1.6;
+			let ro = new Vec3(0, 15, -60);                  // rotated position
+			let rd = (new Vec3(-u, v, 1)).normalize();
+			Scheduler.addTask(new RenderTaskViewport(x, yw, ro, rd));			
+		}
 	}
 	runScheduler();
+	
 	self.postMessage(data);
 });
 
@@ -111,7 +112,7 @@ function getReflection(origin, dir, depth) {
 function runScheduler()
 {
 while(Scheduler.tasks.length) {
-	for(let i = 0; i < /*1024*//*canvas.width*//**canvas.height*//*w*/Scheduler.tasks.length; i++)
+	for(let i = 0; i < /*1024*/Scheduler.tasks.length; i++)
 	{
 		if(!Scheduler.execute()) break;
 	}

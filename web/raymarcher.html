@@ -10,9 +10,9 @@
 <canvas id="canvas"></canvas>
 <script>
 document.write(navigator.hardwareConcurrency+' threads · ');
-document.getElementById('canvas').width=screen.width*window.devicePixelRatio;
-document.getElementById('canvas').height=screen.height*window.devicePixelRatio;
 const canvas = document.getElementById("canvas");
+canvas.width=screen.width*window.devicePixelRatio;
+canvas.height=screen.height*window.devicePixelRatio;
 const ctx = canvas.getContext("2d");
 const imageData = ctx.createImageData(canvas.width, canvas.height);
 const data = imageData.data;
@@ -27,9 +27,8 @@ function renderTasks() {
 	{
     var myWorker = new Worker('worker.js');
     myWorker.addEventListener('message', function(e) {
-    //console.log(e.data);
-      i=new ImageData(e.data, w, linesPerWorker);
-      ctx.putImageData(i, 0, y);
+      //console.log(e.data);
+      ctx.putImageData(new ImageData(e.data, w, linesPerWorker), 0, y);
     }, false);
     myWorker.postMessage([w, h, y, linesPerWorker]);
   }
