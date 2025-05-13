@@ -8,7 +8,7 @@
 <body>
 <canvas id="canvas"></canvas>
 <script>
-console.log(navigator.hardwareConcurrency);
+console.log(navigator.hardwareConcurrency+' threads');
 document.getElementById('canvas').width=screen.width*window.devicePixelRatio;
 document.getElementById('canvas').height=screen.height*window.devicePixelRatio;
 const canvas = document.getElementById("canvas");
@@ -19,6 +19,8 @@ const data = imageData.data;
 function renderTasks() {
   const w = canvas.width;
   const h = canvas.height;
+  const MP = Math.floor((w*h)/1000/100);
+  console.log(MP/10+' MPixel');
   const linesPerWorker = Math.floor(h/navigator.hardwareConcurrency);
   for (let y = 0; y < h; y+=linesPerWorker) 
 	{
