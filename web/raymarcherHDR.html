@@ -4,19 +4,33 @@
   <meta charset="UTF-8" />
   <title>CPU Raymarcher with Checkerboard in HDR</title>
   <style>
-  	canvas {display:block}
-		:root {color-scheme:light dark}
+canvas {display:block}
+:root {color-scheme:light dark}
+@media (dynamic-range:standard) {
+  .high {
+    display:none;
+  }
+}
+@media (dynamic-range:high) {
+  .high {
+    display:inline;
+  }
+  .standard {
+    display:none;
+  }
+}
   </style>
 </head>
 <body>
 <tt>chrome://flags/#enable-experimental-web-platform-features</tt><p>
 <tt>putImageData(Uint8ClampedArray,…)</tt>:<br>
 <canvas id="canvas" width="1280" height="720"></canvas>
-WebGPU <tt>configure({…, format:'rgba16float', toneMapping:{mode:'extended'}})</tt>:<br>
+WebGPU <tt>configure({…, format:'rgba16float', toneMapping:{mode:'extended'}, colorSpace:'rec2020'})</tt>:<br>
 <canvas id="canvas2" width="1280" height="720"></canvas>
+<tt>dynamic-range: <span class="standard">standard</span> <span class="high">high</span></tt><br>
 
 
-  <script Xtype="module">
+  <script>
 // WebGPU Simple Textured Quad
 // from https://webgpufundamentals.org/webgpu/webgpu-simple-textured-quad.html
 async function main(kTextureWidth, kTextureHeight, textureData) {
@@ -36,6 +50,7 @@ async function main(kTextureWidth, kTextureHeight, textureData) {
     device,
     format: presentationFormat,
     toneMapping:{mode:'extended'},
+    colorSpace:'rec2020',
   });
 
   const module = device.createShaderModule({
@@ -490,9 +505,9 @@ class Checker extends Material
 
 function initObjects()
 {
-	objects.push(new Sphere(vec(5, 7, 10), 15, new Material(vec(1, 0.2, 0.3), 0.2, 0.8, 0.8, 0.5)));
-	objects.push(new Box(vec(25, 0, -15), vec(10, 10, 10), new Material(vec(0.4, 0.4, 1.0), 0.2, 0.8, 0.2, 0.2)));
-	objects.push(new Cylinder(vec(-30, 10, -10), vec(10, 20, 0), new Material(vec(0.3, 0.7, 0.3), 0.2, 0.8, 0.2, 0.2)));
+	objects.push(new Sphere(vec(5, 7, 10), 15, new Material(vec(2.0, 0.2, 0.3), 0.2, 0.8, 0.8, 0.5)));
+	objects.push(new Box(vec(25, 0, -15), vec(10, 10, 10), new Material(vec(0.4, 0.4, 2.0), 0.2, 0.8, 0.2, 0.2)));
+	objects.push(new Cylinder(vec(-30, 10, -10), vec(10, 20, 0), new Material(vec(0.3, 1.7, 0.3), 0.2, 0.8, 0.2, 0.2)));
 	objects.push(new PlaneY(vec(0, -10, 0), new Checker(vec(0.6, 0.1, 0.1), vec(1, 1, 1), 0.2, 0.8, 0.1, 0.2)));
 }
 
