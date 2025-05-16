@@ -2,14 +2,17 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>CPU Raymarcher with Checkerboard</title>
-  <style>canvas {display: block; }</style>
+  <title>CPU Raymarcher with Checkerboard in HDR</title>
+  <style>
+  	canvas {display:block}
+		:root {color-scheme:light dark}
+  </style>
 </head>
 <body>
 <tt>chrome://flags/#enable-experimental-web-platform-features</tt><p>
-<tt>putImageData() rgba8unorm</tt>:<br>
+<tt>putImageData(Uint8ClampedArray,…)</tt>:<br>
 <canvas id="canvas" width="1280" height="720"></canvas>
-WebGPU <tt>rgba16float, toneMapping:{mode:'extended'}</tt>:<br>
+WebGPU <tt>configure({…, format: rgba16float, toneMapping:{mode:'extended'}})</tt>:<br>
 <canvas id="canvas2" width="1280" height="720"></canvas>
 
 
@@ -27,7 +30,7 @@ async function main(kTextureWidth, kTextureHeight, textureData) {
   // Get a WebGPU context from the canvas and configure it
   const canvas = document.getElementById("canvas2");
   const context = canvas.getContext('webgpu');
-  const presentationFormat = 'rgba16float';
+  const presentationFormat='rgba16float';
   context.configure({
     device,
     format: presentationFormat,
