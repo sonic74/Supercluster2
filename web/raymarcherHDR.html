@@ -12,7 +12,7 @@
 <tt>chrome://flags/#enable-experimental-web-platform-features</tt><p>
 <tt>putImageData(Uint8ClampedArray,…)</tt>:<br>
 <canvas id="canvas" width="1280" height="720"></canvas>
-WebGPU <tt>configure({…, format: rgba16float, toneMapping:{mode:'extended'}})</tt>:<br>
+WebGPU <tt>configure({…, format:'rgba16float', toneMapping:{mode:'extended'}})</tt>:<br>
 <canvas id="canvas2" width="1280" height="720"></canvas>
 
 
@@ -21,6 +21,7 @@ WebGPU <tt>configure({…, format: rgba16float, toneMapping:{mode:'extended'}})<
 // from https://webgpufundamentals.org/webgpu/webgpu-simple-textured-quad.html
 async function main(kTextureWidth, kTextureHeight, textureData) {
   const adapter = await navigator.gpu?.requestAdapter();
+  console.log(`WebGPU vendor: ${adapter.info.vendor}, architecture: ${adapter.info.architecture}`);
   const device = await adapter?.requestDevice();
   if (!device) {
     fail('need a browser that supports WebGPU');
