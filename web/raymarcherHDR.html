@@ -496,21 +496,6 @@ initObjects();
 render();
 
 
-  const kTextureWidth = 5;
-  const kTextureHeight = 7;
-  const _ = [1,   0,   0, 1];  // red
-  const y = [1, 1,   0, 1];  // yellow
-  const b = [  0,   0, 1, 1];  // blue
-  const textureData = new Float16Array([
-    _, _, _, _, _,
-    _, y, _, _, _,
-    _, y, _, _, _,
-    _, y, y, _, _,
-    _, y, _, _, _,
-    _, y, y, y, _,
-    b, _, _, _, _,
-  ].flat());
-//main(kTextureWidth, kTextureHeight, textureData);
 main(canvas.width, canvas.height, dataHDR);
 
 
