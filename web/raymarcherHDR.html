@@ -6,6 +6,19 @@
   <style>
 canvas {display:block}
 :root {color-scheme:light dark}
+@media (color-gamut:srgb) {
+  .p3 {
+    display:none;
+  }
+}
+@media (color-gamut:p3) {
+  .p3 {
+    display:inline;
+  }
+  .srgb {
+    display:none;
+  }
+}
 @media (dynamic-range:standard) {
   .high {
     display:none;
@@ -27,6 +40,8 @@ canvas {display:block}
 <canvas id="canvas" width="1280" height="720"></canvas>
 WebGPU <tt>configure({…, format:'rgba16float', toneMapping:{mode:'extended'}, colorSpace:'rec2020'})</tt>:<br>
 <canvas id="canvas2" width="1280" height="720"></canvas>
+Current display:<br>
+<tt>color-gamut</tt>:<span class="srgb"><tt>srgb</tt></span><span class="p3"> wide</span></tt><br>
 <tt>dynamic-range:<span class="standard">standard</span><span class="high">high</span></tt><br>
 
 
