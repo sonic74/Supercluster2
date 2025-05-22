@@ -50,12 +50,12 @@ Current display:<br>
 // from https://webgpufundamentals.org/webgpu/webgpu-simple-textured-quad.html
 async function main(kTextureWidth, kTextureHeight, textureData) {
   const adapter = await navigator.gpu?.requestAdapter();
-  console.log(`WebGPU vendor: ${adapter.info.vendor}, architecture: ${adapter.info.architecture}`);
   const device = await adapter?.requestDevice();
   if (!device) {
     fail('need a browser that supports WebGPU');
     return;
   }
+  console.log(`WebGPU vendor: ${adapter.info.vendor}, architecture: ${adapter.info.architecture}`);
 
   // Get a WebGPU context from the canvas and configure it
   const canvas = document.getElementById("canvas2");
@@ -101,14 +101,14 @@ try {
 
         let pos = array(
           // 1st triangle
-          vec2f(-1.0, -1.0),  // center
-          vec2f( 1.0, -1.0),  // right, center
-          vec2f(-1.0,  1.0),  // center, top
+          vec2f(-1.0, -1.0),
+          vec2f( 1.0, -1.0),
+          vec2f(-1.0,  1.0),
 
           // 2st triangle
-          vec2f(-1.0,  1.0),  // center, top
-          vec2f( 1.0, -1.0),  // right, center
-          vec2f( 1.0,  1.0),  // right, top
+          vec2f(-1.0,  1.0),
+          vec2f( 1.0, -1.0),
+          vec2f( 1.0,  1.0),
         );
 
         var vsOutput: OurVertexShaderOutput;
@@ -528,7 +528,8 @@ class Checker extends Material
 
 function initObjects()
 {
-	objects.push(new Sphere(vec(5, 7, 10), 15, new Material(vec(2.0, 0.2, 0.3), 0.2, 0.8, 0.8, 0.5)));
+  objects.push(new Sphere(vec(5, 7, 10), 15, new Material(vec(2.0, 0.2, 0.3), 0.2, 0.8, 0.8, 0.5)));
+//  objects.push(new Sphere(vec(40, 7, 10), 15, new Material(vec(2.0, 0.2, 0.3), 0.2, 0.8, 0.8, 0.5)));
 	objects.push(new Box(vec(25, 0, -15), vec(10, 10, 10), new Material(vec(0.4, 0.4, 2.0), 0.2, 0.8, 0.2, 0.2)));
 	objects.push(new Cylinder(vec(-30, 10, -10), vec(10, 20, 0), new Material(vec(0.3, 1.1, 0.3), 0.2, 0.8, 0.2, 0.2)));
 	objects.push(new PlaneY(vec(0, -10, 0), new Checker(vec(0.6, 0.1, 0.1), vec(1, 1, 1), 0.2, 0.8, 0.1, 0.2)));
